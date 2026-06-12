@@ -336,6 +336,10 @@
   .project-card:hover { background: var(--card); }
   .project-card:hover::before { opacity: 1; }
 
+  /* In-progress card gets teal tint */
+  .project-card.in-progress::before {
+    background: linear-gradient(135deg, rgba(78,240,200,0.05), transparent);
+  }
 
   .project-number {
     font-family: 'DM Mono', monospace;
@@ -368,6 +372,28 @@
   }
   .project-tag.accent { background: rgba(200,240,78,0.12); color: var(--accent); }
 
+  /* Pulsing "In Progress" badge */
+  .project-tag.wip {
+    background: rgba(78,240,200,0.10);
+    color: var(--accent2);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .project-tag.wip::before {
+    content: '';
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent2);
+    animation: pulse-dot 1.8s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.35; transform: scale(0.65); }
+  }
+
   .project-arrow {
     width: 32px; height: 32px;
     border: 1px solid var(--border);
@@ -377,14 +403,13 @@
     transition: background 0.2s, border-color 0.2s;
     font-size: 0.9rem;
   }
-  .project-card:not(.coming-soon):hover .project-arrow {
+  .project-card:not(.coming-soon):not(.in-progress):hover .project-arrow {
     background: var(--accent);
     border-color: var(--accent);
     color: #000;
   }
 
-
-  /* ── ABOUT ── */
+  /* ── CONTACT ── */
   #contact {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -557,7 +582,19 @@
       <div class="project-arrow">↗</div>
     </a>
 
-
+    <!-- IN PROGRESS PROJECT -->
+    <div class="project-card in-progress reveal">
+      <div class="project-number">002</div>
+      <div class="project-title">Replicating a Google Research Paper</div>
+      <p class="project-desc">Going beyond reading research — re-implementing the architecture from scratch, reproducing results, and stress-testing the findings. Building the discipline of understanding ML at the level Google intended it to be understood.</p>
+      <div class="project-tags">
+        <span class="project-tag wip">In Progress</span>
+        <span class="project-tag">TensorFlow</span>
+        <span class="project-tag">Research</span>
+        <span class="project-tag">Computer Vision</span>
+      </div>
+      <div class="project-arrow">◻</div>
+    </div>
 
   </div>
 </section>
